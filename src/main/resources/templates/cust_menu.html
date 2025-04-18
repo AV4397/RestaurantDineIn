@@ -25,7 +25,7 @@
 								<div class="col-lg-6" th:each="data : ${datalist}">
 									<div class="d-flex align-items-center">
 										<img class="flex-shrink-0 img-fluid rounded"
-											th:src="@{'/uploads/' + ${data.imgUrl}}" alt=""
+											 th:src="@{/uploads/{p}(p=${data.imgUrl})}" alt=""
 											style="width: 80px; height: 60px">
 										<div class="w-100 d-flex flex-column text-start ps-4">
 											<h5 class="d-flex justify-content-between border-bottom pb-2">
