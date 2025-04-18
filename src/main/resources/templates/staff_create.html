@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Add Employee</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row ">
+		<div class="row page-create">
+			<div class="col-md-12">
+			<h2>
+				Add Staff
+			</h2>
+			</div>
+			<form th:action="@{/staff/save}" th:object="${employee}" class="text-primary">
+
+				<table class="tbl-form">
+					<tr>
+						<td>First Name</td>
+						<td><input type="text" class="form-control" name="femployeeName" minlength="3" required /></td>
+					</tr>
+					<tr>
+					    <td>Last Name</td>
+					    <td><input type="text" class="form-control" name="lemployeeName" minlength="1" required /></td>
+					</tr>
+					<tr>
+						<td>Address</td>
+						<td><textarea class="form-control" name="address" cols="60" rows="3" minlength="4" required></textarea></td>
+					</tr>
+						<tr>
+						<td>Phone</td>
+						<td><input type="text" class="form-control" name="phone" maxlength="10" minlength="10" pattern="\d{10}"  title="Phone number must be exactly 10 digits" required/></td>
+					</tr>
+					<tr>
+						<td>Email Id</td>
+						<td><input type="email" class="form-control" name="emailId" required/></td>
+					</tr>
+					<tr>
+						<td>Gender</td>
+						<td>
+							<input type="radio" class="form-check-input" name="gender" value="Male" required /> Male
+							&nbsp; &nbsp; &nbsp; 
+							<input type="radio" class="form-check-input" name="gender" value="Female" /> Female
+						</td>
+					</tr>
+					<tr>
+						<td>Salary</td>
+						<td><input type="number" class="form-control" name="salary" required/></td>
+					</tr>
+					<tr>
+						<td>Designation</td>
+						<td>
+							<input type="radio" class="form-check-input" name="designation" value="Manager" required/> Manager
+							&nbsp; &nbsp; &nbsp; 
+							<input type="radio" class="form-check-input" name="designation" value="Chef" /> Chef
+							&nbsp; &nbsp; &nbsp; 
+							<input type="radio" class="form-check-input" name="designation" value="Waiter" /> Waiter
+						</td>
+					</tr>
+					<tr>
+						<td>Zip</td>
+						<td><input type="text" class="form-control" name="zip" required/></td>
+					</tr>
+					
+					<tr>
+						<td>Password</td>
+						<td><input type="password" class="form-control" name="password" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!\/])[A-Za-z\d@!\/]{8,}$"  title="Password must be 8 characters long and include at least one letter, one number, and one special character (@, !, /)" required/></td>
+					</tr>
+				</table>
+				<button type="submit" class="btn btn-success btn-submit">Save</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

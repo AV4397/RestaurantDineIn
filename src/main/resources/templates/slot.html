@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Slot List</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row">
+		<div class="row page-list">
+			<div class="col-md-12">
+
+				<h2 class="text-primary">Slot Details</h2>
+			</div>
+			<div class="col-md-12">
+
+				<form th:if="${session.usertype=='Manager'}" th:action="@{/slot/save}" th:object="${slot}">
+					<table style="margin: auto; width:500px">
+						<tr>
+							<td>Slot Time</td>
+							<td><input type="time" class="form-control" name="slotTime" />
+							</td>
+							<td>
+								<button type="submit" class="btn btn-success btn-submit">Add</button>
+							</td>
+						</tr>
+					</table>
+
+
+
+				</form>
+			</div>
+			<div class="col-md-12">
+
+				<div class="table-responsive">
+					<table class="table table-striped page-details" style="margin: auto; width:500px">
+						<thead class="table-warning">
+							<tr>
+								<th>Slot Time</th>
+								<th th:if="${session.usertype=='Manager'}">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="data : ${datalist}">
+								<td th:text="${data.slotTime}"></td>
+								<td th:if="${session.usertype=='Manager'}">
+									<a th:href="@{'/slot/delete/' + ${data.id}}"
+										class="btn btn-danger btn-submit">Delete</a>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

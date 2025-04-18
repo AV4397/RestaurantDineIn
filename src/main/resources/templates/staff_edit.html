@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Edit Employee Details </title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row ">
+		<div class="row page-edit">
+			<div class="col-md-12">
+			<h2>
+				Edit Staff Details
+				
+			</h2>
+			</div>
+			<div class="col-md-12">
+			<form th:action="@{/staff/update}" th:object="${staff}" >
+				<table class="tbl-form text-success">
+					<tr>
+						<td>Employee ID</td>
+						<td><input readonly type="text" class="form-control" name="employeeId" th:value="${obj.employeeId}" /></td>
+					</tr>
+					<tr>
+						<td>First Name</td>
+						<td><input type="text" class="form-control" name="femployeeName" th:value="${obj.femployeeName}" minlength="3" required/></td>
+					</tr>
+					<tr>
+						<td>Last Name</td>
+						<td><input type="text" class="form-control" name="lemployeeName" th:value="${obj.lemployeeName}" minlength="1" required/></td>
+					</tr>
+					<tr>
+						<td>Address</td>
+						<td><textarea class="form-control" name="address" cols="60" rows="3"
+								th:text="${obj.address}"  minlength="4" required></textarea></td>
+					</tr>
+					<tr>
+						<td>Phone</td>
+						<td><input type="text" class="form-control" name="phone" th:value="${obj.phone}" maxlength="10" minlength="10" pattern="\d{10}"  title="Phone number must be exactly 10 digits" required/></td>
+					</tr>
+					<tr>
+						<td>Email Id</td>
+						<td><input type="email" class="form-control" name="emailId" th:value="${obj.emailId}" required/></td>
+					</tr>
+					<tr>
+						<td>Gender</td>
+						<td>
+							<input type="radio" class="form-check-input" name="gender" value="Male" th:checked="${obj.gender=='Male'}" required/> Male
+							&nbsp; &nbsp; &nbsp; 
+							<input type="radio" class="form-check-input" name="gender" value="Female" th:checked="${obj.gender=='Female'}"/> Female
+						</td>
+					</tr>
+					<tr>
+						<td>Salary</td>
+						<td><input type="number" class="form-control" name="salary" th:value="${obj.salary}" required/></td>
+					</tr>	
+					<tr>
+						<td>Designation</td>
+						<td>
+							<input type="radio" class="form-check-input" name="designation" value="Manager" th:checked="${obj.designation=='Manager'}" required/> Manager
+							&nbsp; &nbsp; &nbsp; 
+							<input type="radio" class="form-check-input" name="designation" value="Chef" th:checked="${obj.designation=='Chef'}"/> Chef
+							&nbsp; &nbsp; &nbsp; 
+							<input type="radio" class="form-check-input" name="designation" value="Waiter" th:checked="${obj.designation=='Waiter'}"/> Waiter
+						</td>
+					</tr>
+					<tr>
+						<td>Zip</td>
+						<td><input type="text" class="form-control" name="zip" th:value="${obj.zip}" required /></td>
+					</tr>
+								
+					<tr>
+						<td>Password</td>
+						<td><input type="password" class="form-control" name="password"  th:value="${obj.password}" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!\/])[A-Za-z\d@!\/]{8,}$"  title="Password must be 8 characters long and include at least one letter, one number, and one special character (@, !, /)" required/></td>
+					</tr>
+				</table>
+				<input type="hidden" name="id" th:value="${obj.id}" />
+				<button type="submit" class="btn btn-success btn-submit">Update</button>
+			</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

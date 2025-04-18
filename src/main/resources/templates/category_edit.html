@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Edit Category </title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row ">
+		<div class="row page-edit">
+			<div class="col-md-12">
+
+				<h2>
+					Edit Category
+
+				</h2>
+			</div>
+			<div class="col-md-12">
+
+				<form th:action="@{/category/update}" th:object="${category}">
+					<table class="tbl-form">
+						<tr>
+							<td> Category ID</td>
+							<td><input readonly type="text" class="form-control" name="catId" th:value="${obj.catId}" />
+							</td>
+						</tr>
+						<tr>
+							<td> Name</td>
+							<td><input type="text" class="form-control" name="name" th:value="${obj.name}" required /></td>
+						</tr>
+						<tr>
+							<td>Description</td>
+							<td><textarea class="form-control" name="remarks" cols="60" rows="5"
+									th:text="${obj.remarks}"></textarea></td>
+						</tr>
+
+					</table>
+
+					<input type="hidden" name="id" th:value="${obj.id}" />
+					<button type="submit" class="btn btn-success btn-submit">Update</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+.tbl-form,
+.tbl-show,
+.create-form,
+.edit-form {
+	margin: auto;
+}
+
+.tbl-form tr td {
+	padding: 5px;
+}
+
+body {
+	/*	background-color: black;
+*/
+}
+
+
+.bg1 {
+	background-image: url(../img/bg1.jpg);
+}
+
+.bg2 {
+	background-image: url(../img/bg2.jpg);
+}
+
+.bg3 {
+	background-image: url(../img/bg3.jpg);
+}
+
+.bg4 {
+	background-image: url(../img/bg4.jpg);
+}
+
+.bg5 {
+	background-image: url(../img/bg5.jpg);
+}
+
+.bg {
+	position: relative;
+	background-size: cover;
+	/* Ensures the image covers the entire container */
+	background-position: center;
+	/* Centers the background image */
+	background-attachment: fixed;
+	/* Fixes the background image in place */
+	width: 100%;
+	height: 84vh;
+	/* Takes full height of the viewport */
+
+	/* Transparent overlay effect */
+	display: flex;
+	justify-content: center;
+	/*align-items: center;*/
+	text-align: center;
+}
+
+.bg::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(240, 240, 250, 0.8);
+	/* Semi-transparent black overlay */
+	z-index: 1;
+	/* Make sure the overlay is above the background */
+}
+
+.bg>* {
+	position: relative;
+	z-index: 2;
+	/* Ensure content is above the transparent overlay */
+	/* You can change this to adjust text color */
+}
+
+
+
+
+
+.page-create,
+.page-list,
+.page-edit,
+.page-view {
+	text-align: center;
+	max-height: 470px;
+	overflow: auto;
+}
+
+.page-create table,
+.page-edit table,
+.page-view table {
+	text-align: left;
+}
+
+.page-create h2,
+.page-list h2,
+.page-edit h2,
+.page-view h2 {
+	color: rgb(0, 0, 255);
+	margin: 5px auto !important;
+	text-align: center;
+	display: block;
+
+	font-family: 'Bebas Neue', serif;
+	font-weight: 700;
+	/* Medium weight for legibility */
+	font-size: 30px;
+	/* Adjust size as needed */
+}
+
+.navbar {
+	font-family: 'Roboto Condensed', serif;
+	font-size: 20px;
+}
+
+.page-view .tbl-show {
+	width: 700px;
+}
+
+.page-view .tbl-show tr td:first-child {
+	padding-left: 40px;
+}
+
+.btn-submit {
+	min-width: 150px;
+}
+
+.content-page {
+	background-color: rgba(221, 240, 255, 0.8);
+	min-height: 400px;
+}
+
+.bg-primary {
+	background-color: rgb(0, 128, 128) !important;
+}
+
+.txt-orange {
+	color: rgb(0, 128, 64) !important;
+}
+
+.ts {
+	text-shadow: 2px 2px 2px black;
+}

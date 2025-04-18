@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Create Menu</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row">
+		<div class="row page-create">
+			<div class="col-md-12">
+				<h2>
+					Add New
+				</h2>
+			</div>
+			<div class="col-md-12">
+
+				<form th:action="@{/menu/save}" th:object="${menu}" method="post" enctype="multipart/form-data">
+
+					<table class="tbl-form">
+						<tr>
+							<td>Photo</td>
+							<td><input type="file" name="image" accept="image/png, image/jpeg" required /></td>
+						</tr>
+						<tr>
+							<td>Category</td>
+							<td>
+								<select class="form-control" name="catId">
+									<option th:each="data : ${categories}" th:value="${data.catId}"
+										th:text="${data.name}">
+									</option>
+								</select>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Menu</td>
+							<td><input type="text" class="form-control" name="name" required /></td>
+						</tr>
+
+						<tr>
+							<td>Price</td>
+							<td><input type="text" class="form-control" name="price" required/></td>
+						</tr>
+
+						<tr>
+							<td>Description</td>
+							<td><textarea class="form-control" name="recipe" cols="60" rows="3" required></textarea></td>
+						</tr>
+
+
+					</table>
+
+					<button type="submit" class="btn btn-success btn-submit">Save</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

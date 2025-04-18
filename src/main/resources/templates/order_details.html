@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Order Details</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="page-view">
+		<div class="row">
+			<div class="col-md-12">
+
+				<h2>Order Details : <span th:text="${obj.orderId}"></span></h2>
+			</div>
+			<div class="col-md-12">
+
+				<b th:text="'Customer id : '+${obj.custId}"></b> <br>
+				<b th:text="'Waiter id : '+${obj.staffId}"></b> <br>
+				<b th:text="'Ordered Time : '+${obj.orderedDate}"></b><br>
+
+			</div>
+			<div class="col-md-12">
+
+				<table class="tbl-show table table-success ">
+					<tr>
+						<td colspan=2>
+							<table style="width: 95%; text-align: center" class="table-bordered">
+								<tr>
+									<th	th:if="${ pmt == null}" class="center">Order No</th	>
+									<th class="center">Order Item</th>
+									<th class="center">Quantity</th>
+									<th class="center">Price</th>
+								</tr>
+								<tr th:each="item : ${obj.orderItems}">
+									<td th:if="${ pmt == null}" th:text="${item.orderNo}"></td>
+									<td th:text="${item.name}"></td>
+									<td th:text="${item.qty}"></td>
+									<td th:text="${item.price}"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="col-md-12">
+
+				<h2>Amount : <span th:text="${obj.amount}"></span></h2>
+				<div th:if="${ pmt != null}">
+					<h2>Tips Amount : <span th:text="${pmt.tipsAmount}"></span></h2>
+					<h2>Payment Mode : <span th:text="${pmt.paymentMode}"></span></h2>
+
+				</div>
+
+				<a style="width:300px; margin:auto" th:href="'/order/edit/'+${obj.orderId}" th:if="${ pmt==null}"
+					class="btn btn-success btn-warning">Edit Order</a>
+
+				<a style="width:300px; margin:auto" th:href="'/order/payment/'+${obj.orderId}" th:if="${ pmt==null}"
+					class="btn btn-success btn-submit">Payment</a>
+			</div>
+
+			<div th:if="${session.usertype == 'Waiter' && pmt==null}" class=" col-md-12">
+				<table style="margin: auto;margin-top:50px">
+					<tr>
+						<td>Total Amount</td>
+						<td><input readonly class="form-control" id="total" th:value="${obj.amount}" /></td>
+					</tr>
+					<tr>
+						<td>Split By</td>
+						<td><input type="number" class="form-control" min="1" max="50" id="num" onchange="funSplit()" />
+						</td>
+					</tr>
+					
+
+				</table>
+				<div style="font-size: 15pt;color:red;background-color:yellow ;">Splitted Amount</div>
+				<div style="font-size: 15pt;color:red;background-color:yellow ;" id="splitAmount"></div>
+				
+				<script>
+					function funSplit() {
+						var total = document.getElementById("total").value;
+						var parts = document.getElementById("num").value;
+
+
+						let result = [];
+
+						let base = (total / parts).toFixed(1);  // Rounded to 1 decimal place
+
+						let sumOfBase = parseFloat(base) * (parts - 1);
+
+						let remainder = (total - sumOfBase).toFixed(1);
+
+						for (let i = 0; i < parts; i++) {
+							if (i === parts - 1) {
+								result.push(parseFloat(remainder));  // The last part gets the remainder
+							} else {
+								result.push(parseFloat(base));  // Other parts get the base value
+							}
+						}
+
+
+						document.getElementById("splitAmount").innerText = result;
+					}
+					
+				</script>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

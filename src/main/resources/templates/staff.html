@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Employee List</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row">
+		<div class="row page-list">
+			<div class="col-md-12">
+				<h2 class="text-success">
+					Staff List
+				</h2>
+
+				<a th:if="${session.usertype=='Admin'}" href="/staff/create"><button class="btn-success">Add
+						New</button></a>
+
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped page-details">
+					<thead class="table-success">
+						<tr>
+							<th>ID</th>
+							<th>Designation</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Phone</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody th:if="${session.usertype=='Admin'}">
+						<tr th:each="data : ${datalist}" >
+							<td> 
+								<a th:text="${data.employeeId}" th:href="@{'/staff/show/' + ${data.id}}"></a>
+							</td>
+							<td th:text="${data.designation}"></td>
+
+							<td th:text="${data.femployeeName}"></td>
+							<td th:text="${data.lemployeeName}"></td>
+							<td th:text="${data.phone}"></td>
+							<td th:text="${data.emailId}"></td>
+						</tr>
+
+
+					</tbody>
+					<tbody th:if="${session.usertype!='Admin'}">
+						<tr th:each="data : ${datalist}"
+							th:if="${!(data.designation=='Manager' && data.employeeId!=session.userid)}">
+	
+							<td  th:text="${data.employeeId}"> </td>
+
+							<td th:text="${data.designation}"></td>
+
+							<td th:text="${data.femployeeName}"></td>
+							<td th:text="${data.lemployeeName}"></td>
+							<td th:text="${data.phone}"></td>
+							<td th:text="${data.emailId}"></td>
+						</tr>
+
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

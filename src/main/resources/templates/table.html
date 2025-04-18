@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Table List</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row">
+		<div class="row page-list">
+
+			<h2 class="text-danger">
+				Table Details
+			</h2>
+			<a th:if="${session.usertype=='Manager'}" href="/table/create"><button class="btn-success">Add New</button></a>
+
+			<div class="table-responsive">
+				<table class="table table-striped page-details" style="width: 600px;margin:auto">
+					<thead class="table-danger">
+						<tr>
+							<th>Table No</th>
+							<th>Capacity</th>
+							<th>Waiter</th>
+							<th th:if="${session.usertype=='Manager'}">Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="data : ${datalist}">
+							<td th:text="${data.tableNo}"></td>
+							<td th:text="${data.capacity}"></td>
+							<td th:text="${data.waiterId}"></td>
+							<td th:if="${session.usertype=='Manager'}">
+							<a th:href="@{'/table/edit/' + ${data.id}}" class="btn btn-warning btn-submit">Edit</a>
+							</td>
+
+													
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

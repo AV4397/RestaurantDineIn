@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="utf-8">
+	<title>Dine In - Restaurant</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+
+
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<!-- Template Stylesheet -->
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Abril+Fatface|Poppins|Jaro|Roboto+Condensed" rel="stylesheet">
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+	<div class="container-xxl p-0 ">
+
+		<!-- Navbar & Hero Start -->
+		<div class="container-xxl position-relative p-0">
+			<nav class="navbar navbar-expand-lg" style="background-color: rgb(128, 255, 0);">
+				<a href="" class="navbar-brand p-0">
+					<span class="text-danger" style="margin-left:20px;color: red;"  th:text="${'Welcome '+session.name+' | '+session.usertype	}">
+					</span> 
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+					<span class="fa fa-bars"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+
+					<!-- Admin Menu starts -->
+					<div th:if="${session.usertype == 'Admin'}" class="navbar-nav ms-auto py-0 pe-4">
+						<a class="nav-item nav-link active" href="/staff/home">Home</a>
+
+						<a class="nav-item nav-link" href="/staff/list">Staff</a>
+						<a class="nav-item nav-link" href="/category/list">Category</a>
+						<a class="nav-item nav-link" href="/menu/list">Menu</a>
+						<a class="nav-item nav-link" href="/table/list">Table</a>
+						<a class="nav-item nav-link" href="/customer/list">Customer</a>
+						<a class="nav-item nav-link" href="/reservation/list">Reservations</a>
+						<a class="nav-item nav-link" href="/order/list">Order</a>
+						<a class="nav-item nav-link" href="/staff/logout">Logout</a>
+					</div>	
+					<!-- Admin Menu ends -->
+
+					<!-- Manager Menu starts -->
+					<div th:if="${session.usertype == 'Manager'}" class="navbar-nav ms-auto py-0 pe-4">
+						<a class="nav-item nav-link active" href="/staff/home">Home</a>
+						<a class="nav-item nav-link active" href="/staff/edit">Profile</a>
+						<a class="nav-item nav-link" href="/staff/list">Staff</a>
+						<a class="nav-item nav-link" href="/category/list">Category</a>
+						<a class="nav-item nav-link" href="/menu/list">Menu</a>
+						<a class="nav-item nav-link" href="/table/list">Table</a>
+
+						<a class="nav-item nav-link" href="/slot/list">Slot</a>
+						<a class="nav-item nav-link" href="/customer/list">Customer</a>
+						<a class="nav-item nav-link" href="/reservation/list">Reservations</a>
+						<a class="nav-item nav-link" href="/reservation/walkin/create">Walkin</a>
+						<a class="nav-item nav-link" href="/order/list">Orders</a>
+
+						<a class="nav-item nav-link" href="/staff/logout">Logout</a>
+					</div>
+					<!-- Manager Menu ends -->
+
+					<!-- Waiter Menu starts -->
+					<div th:if="${session.usertype == 'Waiter'}" class="navbar-nav ms-auto py-0 pe-4">
+						<a class="nav-item nav-link active" href="/staff/home">Home</a>
+						<a class="nav-item nav-link active" href="/staff/edit">Profile</a>
+						<a class="nav-item nav-link" href="/table/list/waiter">My Tables</a>
+
+						<a class="nav-item nav-link" href="/reservation/list">Reservations</a>
+						<a class="nav-item nav-link" href="/order/list">Orders</a>
+
+						
+						<a class="nav-item nav-link" href="/staff/logout">Logout</a>
+					</div>
+					<!-- Waiter Menu ends -->
+
+				</div>
+			</nav>
+		</div>
+		<!-- Navbar & Hero End -->
+
+		<!-- Service Start -->
+		<div class="container-xxl py-2">
+			<div th:if="${session.usertype=='Admin'}" class="container bg bg1" >
+				<div class="starter-template" layout:fragment="content" style="min-height: 370px;"></div>
+			</div>
+			<div th:if="${session.usertype=='Manager'}" class="container bg bg2" >
+				<div class="starter-template" layout:fragment="content" style="min-height: 370px;"></div>
+			</div>
+			<div th:if="${session.usertype=='Waiter'}" class="container bg bg3" >
+				<div class="starter-template" layout:fragment="content" style="min-height: 370px;"></div>
+			</div>
+		</div>
+		<!-- Service End -->
+
+		<!-- Footer Start -->
+		<div class="container-fluid bg-dark text-light footer pt-3 ">
+			<div class="container"></div>
+		</div>
+		<!-- Footer End -->
+
+	</div>
+
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<div id="react-root"></div>
+
+	<!-- 1 inline script to decide what to render -->
+	<script type="text/babel" th:inline="javascript">
+		// 1) Grab any JSON your controllers injected:
+        const staffData = /*[[${staffDataJson}]]*/ null;
+        const custData  = /*[[${custDataJson}]]*/ null;
+        // 2) Tiny React components (you can expand these or import from /static/js/*.jsx)
+        function StaffApp({data}) {
+          return <ul>{data.map(s => <li key={s.id}>{s.name}</li>)}</ul>;
+        }
+        function CustApp({data}) {
+          return <div>Welcome, {data.name}</div>;
+        }
+        // 3) Route by path:
+        const path = window.location.pathname;
+        let App = () => null;
+        if (path.startsWith('/staff')) {
+          App = () => <StaffApp data={staffData || []}/>;
+        } else if (path.startsWith('/cust')) {
+          App = () => <CustApp data={custData || {}}/>;
+        }
+        // 4) Mount it:
+        ReactDOM.createRoot(document.getElementById('react-root')).render(<App/>);
+	</script>
+</body>
+
+
+</html>

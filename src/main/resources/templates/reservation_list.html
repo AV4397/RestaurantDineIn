@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="default">
+
+<head>
+	<title>Employee List</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="row">
+		<div class="row page-list">
+
+			<h2 class="text-dark">
+				Reservation List
+			</h2>
+			<div class="col-md-12">
+
+				<form th:action="@{/reservation/search}" method="post">
+
+					<table class="tbl-form">
+
+						<tr>
+							<td>Booking Date</td>
+							<td><input type="date" class="form-control" name="bdate" required/></td>
+
+							<td>Slot</td>
+							<td>
+								<select class="form-control" name="slotTime">
+									<option th:each="data : ${slots}" th:value="${data.slotTime}"
+										th:text="${data.slotTime}" required>
+									</option>
+								</select>
+
+							</td>
+							<td>
+								<button type="submit" class="btn btn-success btn-submit">Apply</button>
+							</td>
+						</tr>
+					</table>
+
+				</form>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped page-details">
+					<thead class="table-dark">
+						<tr>
+							<th th:if="${session.usertype=='Waiter'}">Order</th>
+							<th>Customer</th>
+							<th>Booking</th>
+							<th>Table </th>
+							<th>Slot</th>
+							<th>Status</th>
+							<th th:if="${session.usertype == 'Manager'}" width="300px">CANCEL</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="data : ${datalist}">
+							<td th:if="${session.usertype=='Waiter'}">
+								<a th:href="@{'/order/create/reserv/' + ${data.reservationId}+'/'+${data.customerId}}"><span
+										class="glyphicon glyphicon-folder-open"></span> Order</a>
+							</td>
+							<td th:text="${data.customerId}"></td>
+							<td th:text="${data.bdate}"></td>
+							<td th:text="${data.tableNo}"></td>
+							<td th:text="${data.slotTime}"></td>
+							<td th:text="${data.status}"></td>
+							<td th:if="${data.status == 'Booked' && session.usertype=='Manager'}">
+
+								<a th:href="@{'/reservation/delete/' + ${data.id}}">
+									<input type="button" class=" btn-danger " value="CANCEL" />
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
